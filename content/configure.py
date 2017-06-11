@@ -31,7 +31,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-from os import path, getcwd
+from os import path, getcwd, environ, getenv
 from collections import defaultdict
 config = defaultdict(defaultdict)
 
@@ -44,22 +44,22 @@ config["name"] = "OSM Bright"
 
 # The absolute path to your MapBox projects directory. You should 
 # not need to change this unless you have configured TileMill specially
-config["path"] = path.expanduser("~/Documents/MapBox/project")
+config["path"] = environ['STYLES_VOLUME_PATH']
 
 # PostGIS connection setup
 # Leave empty for Mapnik defaults. The only required parameter is dbname.
-config["postgis"]["host"]     = ""
-config["postgis"]["port"]     = ""
-config["postgis"]["dbname"]   = "osm"
-config["postgis"]["user"]     = ""
-config["postgis"]["password"] = ""
+config["postgis"]["host"]     = environ['PGOSM_CONTAINER_ALIAS']
+config["postgis"]["port"]     = environ['POSTGRES_TCP_PORT']
+config["postgis"]["dbname"]   = environ['POSTGRES_DB']
+config["postgis"]["user"]     = environ['POSTGRES_USER']
+config["postgis"]["password"] = "" # TODO
 
 # Increase performance if you are only rendering a particular area by
 # specifying a bounding box to restrict queries. Format is "XMIN,YMIN,XMAX,YMAX"
 # in the same units as the database (probably spherical mercator meters). The
 # whole world is "-20037508.34 -20037508.34 20037508.34 20037508.34".
 # Leave blank to let Mapnik estimate.
-config["postgis"]["extent"] = "-20037508.34,-20037508.34,20037508.34,20037508.34"
+config["postgis"]["extent"] = getenv('EXTENTS', "-20037508.34,-20037508.34,20037508.34,20037508.34")
 
 # Land shapefiles required for the style. If you have already downloaded
 # these or wish to use different versions, specify their paths here.
@@ -68,12 +68,13 @@ config["postgis"]["extent"] = "-20037508.34,-20037508.34,20037508.34,20037508.34
 # - http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
 # - http://data.openstreetmapdata.com/land-polygons-split-3857.zip
 
-config["land-high"] = path.join(getcwd(),"shp/land-polygons-split-3857/land_polygons.shp")
-config["land-low"] = path.join(getcwd(),"shp/simplified-land-polygons-complete-3857/simplified_land_polygons.shp")
+shapefiles_dir_path  = environ['SHAPEFILES_VOLUME_PATH']
+config["land-high"] = path.join(shapefiles_dir_path, "land_polygons.shp")
+config["land-low"] = path.join(shapefiles_dir_path, "simplified_land_polygons.shp")
 
 # Places shapefile required for the osm2pgsql style
 # - http://mapbox-geodata.s3.amazonaws.com/natural-earth-1.4.0/cultural/10m-populated-places-simple.zip
 #  or
 # - http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
 
-config["ne_places"] = path.join(getcwd(),"shp/ne_10m_populated_places/ne_10m_populated_places.shp")
+config["ne_places"] = path.join(shapefiles_dir_path, "ne_10m_populated_places.shp")
