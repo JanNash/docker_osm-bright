@@ -2,39 +2,42 @@
 
 set -e
 
-READYFILE="$STATUS_VOLUME_PATH/osm_bright.is_ready"
+: "${STATUS_VOLUME_PATH:?STATUS_VOLUME_PATH needs to be set and non-empty.}"
+: "${STYLES_VOLUME_PATH:?STYLES_VOLUME_PATH needs to be set and non-empty.}"
+: "${CONTENT_DIR_PATH:?CONTENT_DIR_PATH needs to be set and non-empty.}"
 
-OSM_BRIGHT_DIR="$STYLES_VOLUME_PATH/OSMBright"
-STYLEFILE="$OSM_BRIGHT_DIR/OSMBright.xml"
+READYFILE="${STATUS_VOLUME_PATH}/osm_bright.is_ready"
+OSM_BRIGHT_DIR="${STYLES_VOLUME_PATH}/OSMBright"
+STYLEFILE="${OSM_BRIGHT_DIR}/OSMBright.xml"
 
-if [[ ! -f "$STYLEFILE" ]]
+if [[ ! -f "${STYLEFILE}" ]]
 then
-	rm -f "$READYFILE"
+	rm -f "${READYFILE}"
 fi
 
-if [[ ! -f "$READYFILE" ]]
+if [[ ! -f "${READYFILE}" ]]
 then
-	until [[ -f "$STATUS_VOLUME_PATH/shapefiles.is_ready" ]]
+	until [[ -f "${STATUS_VOLUME_PATH}/shapefiles.is_ready" ]]
 	do
 		echo "Waiting for shapefiles..."
 		sleep 5
 	done
 
-	cd "$CONTENT_DIR_PATH"
+	cd "${CONTENT_DIR_PATH}"
 
 	wget --no-verbose https://github.com/JanNash/osm-bright/archive/master.zip
 	unzip master.zip
 	rm master.zip
 	cp configure.py osm-bright-master/
 
-	rm -rf "$OSM_BRIGHT_DIR"
+	rm -rf "${OSM_BRIGHT_DIR}"
 	cd osm-bright-master
 	./make.py
 	cd ..
 	rm -rf osm-bright-master
 
-	cd "$OSM_BRIGHT_DIR"
+	cd "${OSM_BRIGHT_DIR}"
 	carto project.mml > OSMBright.xml
 
-	touch "$READYFILE"
+	touch "${READYFILE}"
 fi
