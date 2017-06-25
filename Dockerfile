@@ -15,7 +15,6 @@ RUN \
         ca-certificates \
         node-carto \
         python \
-        unzip \
         wget \
 &&  apt-get clean \
 &&  rm -rf \
