@@ -31,4 +31,4 @@ RUN chmod +x \
 	${CONTENT_DIR_PATH}/configure.py \
 	/usr/local/bin/load_and_process_osmbright
 
-ENTRYPOINT ["load_and_process_osmbright"]
+CMD ["load_and_process_osmbright"]
