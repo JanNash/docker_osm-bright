@@ -4,9 +4,10 @@
 FROM debian:jessie-slim
 MAINTAINER Jan Nash <jnash@jnash.de>
 
-ARG CONTENT_DIR_PATH
-
 ENV DEBIAN_FRONTEND noninteractive
+
+ARG CONTENT_DIR_PATH
+ARG WAIT_FOR_VOLUME_PATH
 
 RUN \
 apt-get update && \
@@ -21,9 +22,13 @@ rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 RUN mkdir -p ${CONTENT_DIR_PATH}
 
-COPY ./scripts/load_and_process_osmbright /usr/local/bin
+COPY ./content/shapefiles "${WAIT_FOR_VOLUME_PATH}"
 COPY ./content/configure.py ${CONTENT_DIR_PATH}
+COPY ./scripts/load_and_process_osmbright /usr/local/bin
 
-RUN chmod +x /usr/local/bin/load_and_process_osmbright ${CONTENT_DIR_PATH}/configure.py
+RUN chmod +x \
+	"${WAIT_FOR_VOLUME_PATH}"/shapefiles \
+	${CONTENT_DIR_PATH}/configure.py \
+	/usr/local/bin/load_and_process_osmbright
 
-ENTRYPOINT ["load_and_process_osmbright"]
+CMD ["load_and_process_osmbright"]
