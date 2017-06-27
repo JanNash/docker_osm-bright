@@ -17,12 +17,6 @@ fi
 
 if [[ ! -f "${READYFILE}" ]]
 then
-	until [[ -f "${STATUS_VOLUME_PATH}/shapefiles.is_ready" ]]
-	do
-		echo "Waiting for shapefiles..."
-		sleep 5
-	done
-
 	cd "${CONTENT_DIR_PATH}"
 
 	wget --no-verbose https://github.com/JanNash/osm-bright/archive/master.zip
