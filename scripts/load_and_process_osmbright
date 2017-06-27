@@ -12,26 +12,26 @@ STYLEFILE="${OSM_BRIGHT_DIR}/OSMBright.xml"
 
 if [[ ! -f "${STYLEFILE}" ]]
 then
-	rm -f "${READYFILE}"
+    rm -f "${READYFILE}"
 fi
 
 if [[ ! -f "${READYFILE}" ]]
 then
-	cd "${CONTENT_DIR_PATH}"
+    cd "${CONTENT_DIR_PATH}"
 
-	wget --no-verbose https://github.com/JanNash/osm-bright/archive/master.zip
-	unzip master.zip
-	rm master.zip
-	cp configure.py osm-bright-master/
+    wget --no-verbose https://github.com/JanNash/osm-bright/archive/master.zip
+    unzip master.zip
+    rm master.zip
+    cp configure.py osm-bright-master/
 
-	rm -rf "${OSM_BRIGHT_DIR}"
-	cd osm-bright-master
-	./make.py
-	cd ..
-	rm -rf osm-bright-master
+    rm -rf "${OSM_BRIGHT_DIR}"
+    cd osm-bright-master
+    ./make.py
+    cd ..
+    rm -rf osm-bright-master
 
-	cd "${OSM_BRIGHT_DIR}"
-	carto project.mml > OSMBright.xml
+    cd "${OSM_BRIGHT_DIR}"
+    carto project.mml > OSMBright.xml
 
-	touch "${READYFILE}"
+    touch "${READYFILE}"
 fi
