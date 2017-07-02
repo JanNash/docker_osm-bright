@@ -20,14 +20,16 @@ RUN \
 &&  rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* \
-        /tmp/*
+        /tmp/* \
 
-COPY ./content/shapefiles                   "${WAIT_FOR_VOLUME_PATH}"
-COPY ./content/configure.py                 "${CONTENT_DIR_PATH}"
-COPY ./scripts/load_and_process_osmbright   /usr/local/bin
+&&  mkdir -p "${WAIT_FOR_VOLUME_PATH}" "${CONTENT_DIR_PATH}"
+
+COPY ./content/osm-bright "${WAIT_FOR_VOLUME_PATH}"
+COPY ./content/configure.py "${CONTENT_DIR_PATH}"
+COPY ./scripts/load_and_process_osmbright /usr/local/bin
 
 RUN chmod +x \
-        "${WAIT_FOR_VOLUME_PATH}/shapefiles" \
+        "${WAIT_FOR_VOLUME_PATH}/osm-bright" \
         "${CONTENT_DIR_PATH}/configure.py" \
         /usr/local/bin/load_and_process_osmbright
 
