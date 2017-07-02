@@ -10,19 +10,30 @@ ARG CONTENT_DIR_PATH
 ARG WAIT_FOR_VOLUME_PATH
 
 RUN \
-    apt-get update \
+# Check for mandatory build-arguments
+    MISSING_ARG_MSG="Build argument needs to be set and non-empty." \
+&&  : "${CONTENT_DIR_PATH:?${MISSING_ARG_MSG}}" \
+&&  : "${WAIT_FOR_VOLUME_PATH:?${MISSING_ARG_MSG}}" \
+
+# Package installations
+&&  apt-get update \
 &&  apt-get install -y --no-install-recommends \
         ca-certificates \
         node-carto \
         python \
         wget \
+
+# Cleanup
 &&  apt-get clean \
 &&  rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* \
         /tmp/* \
 
-&&  mkdir -p "${WAIT_FOR_VOLUME_PATH}" "${CONTENT_DIR_PATH}"
+# Create directories
+&&  mkdir -p \
+        "${WAIT_FOR_VOLUME_PATH}" \
+        "${CONTENT_DIR_PATH}"
 
 COPY ./content/osm-bright "${WAIT_FOR_VOLUME_PATH}"
 COPY ./content/configure.py "${CONTENT_DIR_PATH}"
