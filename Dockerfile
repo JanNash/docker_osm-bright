@@ -35,12 +35,12 @@ RUN \
         "${STATUS_VOLUME_PATH}" \
         "${CONTENT_DIR_PATH}"
 
-COPY ./content/osm-bright "${STATUS_VOLUME_PATH}"
+COPY ./content/wait_for_osmbright "${STATUS_VOLUME_PATH}"
 COPY ./content/configure.py "${CONTENT_DIR_PATH}"
 COPY ./scripts/load_and_process_osmbright /usr/local/bin
 
 RUN chmod +x \
-        "${STATUS_VOLUME_PATH}/osm-bright" \
+        "${STATUS_VOLUME_PATH}/wait_for_osmbright" \
         "${CONTENT_DIR_PATH}/configure.py" \
         /usr/local/bin/load_and_process_osmbright
 
