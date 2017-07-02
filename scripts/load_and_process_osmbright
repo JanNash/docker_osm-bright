@@ -20,19 +20,19 @@ if [[ ! -f "${READYFILE}" ]]
 then
     cd "${CONTENT_DIR_PATH}"
 
-    wget "https://github.com/JanNash/osm-bright/archive/master.tar.gz" \
-    tar -xzf "osm-bright-master.tar.gz" \
-    rm "osm-bright-master.tar.gz" \
+    wget --no-verbose "https://github.com/JanNash/osm-bright/archive/master.tar.gz"
+    tar -xzf "master.tar.gz"
+    rm "master.tar.gz"
 
-    cp configure.py master/
+    cp configure.py osm-bright-master
 
     # This directory will be recreated by ./make.py
     # See configure.py for further reference
     rm -rf "${OSM_BRIGHT_DIR}"
-    cd master
+    cd osm-bright-master
     ./make.py
     cd ..
-    rm -rf master
+    rm -rf osm-bright-master
 
     cd "${OSM_BRIGHT_DIR}"
     carto project.mml > OSMBright.xml
