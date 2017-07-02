@@ -22,9 +22,9 @@ RUN \
         /var/tmp/* \
         /tmp/*
 
-COPY ./content/shapefiles                   "${WAIT_FOR_VOLUME_PATH}"
-COPY ./content/configure.py                 "${CONTENT_DIR_PATH}"
-COPY ./scripts/load_and_process_osmbright   /usr/local/bin
+COPY ./content/osm-bright "${WAIT_FOR_VOLUME_PATH}"
+COPY ./content/configure.py "${CONTENT_DIR_PATH}"
+COPY ./scripts/load_and_process_osmbright /usr/local/bin
 
 RUN chmod +x \
         "${WAIT_FOR_VOLUME_PATH}/shapefiles" \
