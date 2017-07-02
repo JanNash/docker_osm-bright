@@ -2,11 +2,12 @@
 
 set -e
 
-: "${STATUS_VOLUME_PATH:?STATUS_VOLUME_PATH needs to be set and non-empty.}"
-: "${STYLES_VOLUME_PATH:?STYLES_VOLUME_PATH needs to be set and non-empty.}"
-: "${CONTENT_DIR_PATH:?CONTENT_DIR_PATH needs to be set and non-empty.}"
+MISSING_ENV_VAR_MSG="Environment variable needs to be set and non-empty."
+: "${WAIT_FOR_VOLUME_PATH:?${MISSING_ENV_VAR_MSG}}"
+: "${STYLES_VOLUME_PATH:?${MISSING_ENV_VAR_MSG}}"
+: "${CONTENT_DIR_PATH:?${MISSING_ENV_VAR_MSG}}"
 
-READYFILE="${STATUS_VOLUME_PATH}/osm_bright.is_ready"
+READYFILE="${WAIT_FOR_VOLUME_PATH}/osm_bright.is_ready"
 OSM_BRIGHT_DIR="${STYLES_VOLUME_PATH}/OSMBright"
 STYLEFILE="${OSM_BRIGHT_DIR}/OSMBright.xml"
 
