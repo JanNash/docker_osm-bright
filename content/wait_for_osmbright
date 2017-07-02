@@ -5,9 +5,8 @@ set -o pipefail
 set -o nounset
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "${__dir}"
 
-until [[ -f "osm_bright.is_ready" ]]
+until [[ -f "${__dir}/osm_bright.is_ready" ]]
 do
     echo "Waiting for osm-bright..."
     sleep 5
