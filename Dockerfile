@@ -44,4 +44,7 @@ RUN chmod +x \
         "${CONTENT_DIR_PATH}/configure.py" \
         /usr/local/bin/load_and_process_osmbright
 
-CMD ["load_and_process_osmbright"]
+# FIXME: Atm, the command has to be specified in the compose-file,
+# so it doesn't get wiped by the overridden entrypoint in the compose-file.
+# For further information, see: https://github.com/docker/compose/issues/3140
+# CMD ["load_and_process_osmbright"]
