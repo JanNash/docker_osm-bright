@@ -48,7 +48,7 @@ config["path"] = environ['STYLES_VOLUME_PATH']
 
 # PostGIS connection setup
 # Leave empty for Mapnik defaults. The only required parameter is dbname.
-config["postgis"]["host"]     = environ['PGOSM_CONTAINER_ALIAS']
+config["postgis"]["host"]     = environ['POSTGRES_CONTAINER_ALIAS']
 config["postgis"]["port"]     = environ['POSTGRES_TCP_PORT']
 config["postgis"]["dbname"]   = environ['POSTGRES_DB']
 config["postgis"]["user"]     = environ['POSTGRES_USER']
