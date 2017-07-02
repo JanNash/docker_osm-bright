@@ -20,7 +20,9 @@ RUN \
 &&  rm -rf \
         /var/lib/apt/lists/* \
         /var/tmp/* \
-        /tmp/*
+        /tmp/* \
+
+&&  mkdir -p "${WAIT_FOR_VOLUME_PATH}" "${CONTENT_DIR_PATH}"
 
 COPY ./content/osm-bright "${WAIT_FOR_VOLUME_PATH}"
 COPY ./content/configure.py "${CONTENT_DIR_PATH}"
