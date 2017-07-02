@@ -1,7 +1,7 @@
 # DOCKER-VERSION 17.03.0-ce
 # VERSION 0.3.0
 
-FROM debian:jessie-slim
+FROM debian:stretch-slim
 MAINTAINER Jan Nash <jnash@jnash.de>
 
 ENV DEBIAN_FRONTEND noninteractive
