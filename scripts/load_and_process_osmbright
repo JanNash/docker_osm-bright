@@ -20,9 +20,9 @@ if [[ ! -f "${READYFILE}" ]]
 then
     cd "${CONTENT_DIR_PATH}"
 
-    wget "https://github.com/JanNash/osm-bright/archive/master.tar.gz" \
-    tar -xzf "osm-bright-master.tar.gz" \
-    rm "osm-bright-master.tar.gz" \
+    wget "https://github.com/JanNash/osm-bright/archive/master.tar.gz"
+    tar -xzf "osm-bright-master.tar.gz"
+    rm "osm-bright-master.tar.gz"
 
     cp configure.py master/
 
