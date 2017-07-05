@@ -4,8 +4,7 @@
 FROM debian:stretch-slim
 MAINTAINER Jan Nash <jnash@jnash.de>
 
-ENV DEBIAN_FRONTEND noninteractive
-
+ARG DEBIAN_FRONTEND=noninteractive
 ARG CONTENT_DIR_PATH
 ARG STATUS_VOLUME_PATH
 
