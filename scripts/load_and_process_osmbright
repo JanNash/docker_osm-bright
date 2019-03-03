@@ -20,7 +20,7 @@ if [[ ! -f "${READYFILE}" ]]
 then
     cd "${CONTENT_DIR_PATH}"
 
-    wget --no-verbose "https://github.com/JanNash/osm-bright/archive/master.tar.gz"
+    wget --no-verbose "https://github.com/JanNash/carto-css_osm-bright/archive/master.tar.gz"
     tar -xzf "master.tar.gz"
     rm "master.tar.gz"
 
